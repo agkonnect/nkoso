@@ -1,7 +1,6 @@
 import Link from 'next/link';
+import MarqueeCategories from '@/components/MarqueeCategories';
 import { ArrowRight, TrendingUp, Users, Heart, Shield, Zap, Globe } from 'lucide-react';
-
-const sectors = ['Tech', 'Agriculture', 'Fashion', 'Health', 'Education', 'Finance', 'Food & Bev', 'Retail'];
 
 const stats = [
   { label: 'Businesses Listed', value: '500+' },
@@ -114,15 +113,9 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Sectors */}
-      <section className="py-8 border-y border-dark-700 overflow-hidden">
-        <div className="flex gap-4 animate-[scroll_20s_linear_infinite] whitespace-nowrap">
-          {[...sectors, ...sectors].map((s, i) => (
-            <span key={i} className="inline-flex items-center gap-2 bg-dark-800 border border-dark-600 rounded-full px-4 py-2 text-gray-400 text-sm shrink-0">
-              <span className="w-2 h-2 bg-brand-500 rounded-full" /> {s}
-            </span>
-          ))}
-        </div>
+      {/* Sectors — Animated Marquee */}
+      <section className="border-y border-dark-700">
+        <MarqueeCategories />
       </section>
 
       {/* How It Works */}

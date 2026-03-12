@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import ListingCard from '@/components/ListingCard';
 import { Search, SlidersHorizontal, Loader2, Sparkles } from 'lucide-react';
@@ -157,12 +158,19 @@ const MOCK_LISTINGS: Listing[] = [
 const SECTORS = ['all', 'tech', 'agriculture', 'fashion', 'health', 'education', 'finance', 'food', 'retail', 'other'];
 const STAGES = ['all', 'idea', 'mvp', 'growing', 'established'];
 
-export default function FeedPage() {
+function FeedContent() {
   const [listings, setListings] = useState<Listing[]>(MOCK_LISTINGS);
   const [filtered, setFiltered] = useState<Listing[]>(MOCK_LISTINGS);
   const [search, setSearch] = useState('');
-  const [sector, setSector] = useState('all');
+  const searchParams = useSearchParams();
+  const [sector, setSector] = useState(() => searchParams.get('category') || 'all');
   const [stage, setStage] = useState('all');
+
+  // Sync sector filter with URL query param
+  useEffect(() => {
+    const cat = searchParams.get('category');
+    if (cat && cat !== sector) setSector(cat);
+  }, [searchParams]);
   const [sortBy, setSortBy] = useState('latest');
   const [loading] = useState(false);
 
@@ -296,5 +304,17 @@ export default function FeedPage() {
         </div>
       </main>
     </div>
+  );
+}
+
+export default function FeedPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-dark-900 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-brand-500" />
+      </div>
+    }>
+      <FeedContent />
+    </Suspense>
   );
 }
