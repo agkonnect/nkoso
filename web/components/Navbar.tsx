@@ -8,8 +8,8 @@ import { Home, Search, PlusCircle, LayoutDashboard, User, Bell, LogOut, Menu, X 
 import type { User as SupabaseUser } from '@supabase/supabase-js';
 
 const navLinks = [
-  { href: '/feed', label: 'Discover', icon: Home },
-  { href: '/explore', label: 'Explore', icon: Search },
+  { href: '/', label: 'Home', icon: Home },
+  { href: '/feed', label: 'Explore', icon: Search },
   { href: '/listing/create', label: 'List Business', icon: PlusCircle },
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
 ];
