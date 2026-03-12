@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #f5f5f5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-brand-500 hover:bg-brand-600 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-secondary {
+    @apply bg-dark-700 hover:bg-dark-600 text-white font-semibold px-6 py-3 rounded-xl border border-dark-500 transition-all duration-200;
+  }
+  .btn-ghost {
+    @apply hover:bg-dark-700 text-gray-300 hover:text-white font-medium px-4 py-2 rounded-lg transition-all duration-200;
+  }
+  .card {
+    @apply bg-dark-800 border border-dark-600 rounded-2xl overflow-hidden;
+  }
+  .input {
+    @apply w-full bg-dark-700 border border-dark-500 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-brand-500 transition-colors;
+  }
+  .label {
+    @apply block text-sm font-medium text-gray-300 mb-2;
+  }
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  .badge-gold {
+    @apply badge bg-brand-500/20 text-brand-400;
+  }
+  .badge-green {
+    @apply badge bg-forest-500/20 text-forest-400;
+  }
+  .badge-red {
+    @apply badge bg-earth-500/20 text-earth-400;
+  }
+  .badge-gray {
+    @apply badge bg-dark-600 text-gray-400;
+  }
+  .section-title {
+    @apply text-2xl font-display font-bold text-white;
+  }
+  .progress-bar {
+    @apply h-2 bg-dark-600 rounded-full overflow-hidden;
+  }
+  .progress-fill {
+    @apply h-full bg-gradient-to-r from-brand-500 to-brand-400 rounded-full transition-all duration-500;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #141414; }
+::-webkit-scrollbar-thumb { background: #3a3a3a; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #f79009; }
+
+/* Feed card hover */
+.listing-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.listing-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(247, 144, 9, 0.1); }
