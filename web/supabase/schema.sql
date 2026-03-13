@@ -239,6 +239,9 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER listings_updated_at BEFORE UPDATE ON public.listings
   FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 
+CREATE TRIGGER profiles_updated_at BEFORE UPDATE ON public.profiles
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+
 -- Auto-create profile on signup
 CREATE OR REPLACE FUNCTION handle_new_user()
 RETURNS TRIGGER AS $$
@@ -246,9 +249,9 @@ BEGIN
   INSERT INTO public.profiles (id, full_name, username, role)
   VALUES (
     NEW.id,
-    COALESCE(NEW.raw_user_meta_data->>' full_name', 'User'),
-    COALESCE(NEW.raw_user_meta_data->>' username', 'user_' || substr(NEW.id::text, 1, 8)),
-    COALESCE((NEW.raw_user_meta_data->>' role')::user_role, 'supporter')
+    COALESCE(NEW.raw_user_meta_data->>'full_name', 'User'),
+    COALESCE(NEW.raw_user_meta_data->>'username', 'user_' || substr(NEW.id::text, 1, 8)),
+    COALESCE((NEW.raw_user_meta_data->>'role')::user_role, 'supporter')
   )
   ON CONFLICT (id) DO NOTHING;
   RETURN NEW;

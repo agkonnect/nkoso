@@ -36,18 +36,9 @@ function AuthForm() {
           },
         });
         if (signUpError) throw signUpError;
-        if (data.user) {
-          // Insert profile
-          await supabase.from('profiles').upsert({
-            id: data.user.id,
-            full_name: form.full_name,
-            username: form.username,
-            role,
-            is_verified: false,
-            ghana_card_verified: false,
-          });
-          setSuccess('Account created! Check your email to verify your account.');
-        }
+        // Profile is auto-created by database trigger (handle_new_user)
+        // No client-side insert needed — trigger runs with SECURITY DEFINER
+        setSuccess('Account created! Check your email to verify your account.');
       } else {
         const { error: signInError } = await supabase.auth.signInWithPassword({
           email: form.email,
